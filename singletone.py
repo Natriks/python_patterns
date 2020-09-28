@@ -1,33 +1,40 @@
 class SingletonMeta(type):
+    """
+    В Python класс Одиночка можно реализовать по-разному. Возможные способы
+    включают себя базовый класс, декоратор, метакласс. Мы воспользуемся
+    метаклассом, поскольку он лучше всего подходит для этой цели.
+    """
 
-    __created_objects = {}
+    _instances = {}
 
     def __call__(cls, *args, **kwargs):
-        if cls not in cls.__created_objects:
-            singletone_object = super().__call__(*args, **kwargs)
-            cls.__created_objects[cls] = singletone_object
-        return cls.__created_objects[cls]
+        """
+        Данная реализация не учитывает возможное изменение передаваемых
+        аргументов в `__init__`.
+        """
+        if cls not in cls._instances:
+            instance = super().__call__(*args, **kwargs)
+            cls._instances[cls] = instance
+        return cls._instances[cls]
 
 
 class Singleton(metaclass=SingletonMeta):
+    def some_business_logic(self):
+        """
+        Наконец, любой одиночка должен содержать некоторую бизнес-логику,
+        которая может быть выполнена на его экземпляре.
+        """
 
-    a = 0
-    b = 0
-
-    def summ(self, a, b):
-        self.a = a
-        self.b = b
-        return self.a + self.b
-
-
-s1 = Singleton()
-s1.summ(2, 2)
-
-s2 = Singleton()
-s2.summ(3, 3)
+        # ...
 
 
-if id(s1) == id(s2):
-    print("Объект один.")
-else:
-    print("Объекта 2.")
+if __name__ == "__main__":
+    # Клиентский код.
+
+    s1 = Singleton()
+    s2 = Singleton()
+
+    if id(s1) == id(s2):
+        print("Singleton works, both variables contain the same instance.")
+    else:
+        print("Singleton failed, variables contain different instances.")
