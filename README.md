@@ -1,2 +1,2 @@
-# python_patterns
+# Python patterns
 Test project for patterns realization in Python

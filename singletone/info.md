@@ -25,3 +25,8 @@ Singletone имеет такие же преимущества и недоста
 # Multy thread singleton
 
 Чтобы исправить проблему, требуется синхронизировать потоки при создании объекта-Одиночки.
+
+
+# Доп. информация
+
+**URL:** https://refactoring.guru/ru/design-patterns/singleton
